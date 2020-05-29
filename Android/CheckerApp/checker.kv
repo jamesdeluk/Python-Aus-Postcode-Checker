@@ -1,0 +1,49 @@
+# #: import kivy.config Config
+
+<CheckerWidget>:
+    canvas.before:
+        Color:
+            rgba: 0.3, 0.3, 0.3, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+    orientation: 'vertical'
+    AnchorLayout:
+        size_hint_y: None
+        height: 50
+        TextInput:
+            id: postcode_text_input
+            font_size: 20
+            size_hint_x: 0.95
+            multiline: False
+            text: 'Enter postcode here'
+            padding: [0, (self.height-self.line_height)/2]
+            halign: 'center'
+            valign: 'middle'
+    AnchorLayout:
+        size_hint_y: None
+        height: 50
+        Button:
+            id: my_button
+            text: '>>> CHECK <<<'
+            font_size: 26
+            size_hint_x: 0.95
+            on_press: output.text = app.check(postcode_text_input.text)
+            on_release: postcode_text_input.text = ''
+            on_release: postcode_text_input.focus = True
+    AnchorLayout:
+        size_hint_y: None
+        height: 300 # (Config.getint('graphics', 'height') - 100)
+        Label:
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 0.9
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            color: 0,0,0,1
+            id: output
+            font_size: 24
+            size_hint_x: 0.95
+            halign: 'center'
+            valign: 'middle'
